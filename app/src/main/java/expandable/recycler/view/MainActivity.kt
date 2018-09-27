@@ -1,9 +1,9 @@
 package expandable.recycler.view
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearSmoothScroller
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearSmoothScroller
 import expandable.recycler.view.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

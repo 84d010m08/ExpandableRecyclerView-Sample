@@ -1,11 +1,11 @@
 package expandable.recycler.view
 
 import android.content.Context
-import android.databinding.DataBindingUtil
 import android.os.SystemClock
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import expandable.recycler.view.databinding.ItemChildCheckboxBinding
 import expandable.recycler.view.databinding.ItemChildChronometerBinding
 import expandable.recycler.view.databinding.ItemChildRatingbarBinding
