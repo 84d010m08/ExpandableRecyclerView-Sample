@@ -4,10 +4,11 @@ import android.content.Context
 import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.DrawableRes
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import expandable.recycler.view.databinding.ItemChildCheckboxBinding
 import expandable.recycler.view.databinding.ItemChildChronometerBinding
+import expandable.recycler.view.databinding.ItemChildImageBinding
 import expandable.recycler.view.databinding.ItemChildRatingbarBinding
 import expandable.recycler.view.databinding.ItemParentBinding
 
@@ -17,46 +18,46 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
 
     private val inflater = LayoutInflater.from(context)
 
-    private var isExpandedCheckbox = false
+    private var isExpandedImage = false
     private var isExpandedChronometer = false
     private var isExpandedRatingBar = false
 
-    private val checkboxRecyclerItems = mutableListOf<ChildCheckboxRecyclerItem>()
+    private val imageRecyclerItems = mutableListOf<ChildImageRecyclerItem>()
     private val chronometerRecyclerItems = mutableListOf<ChildChronometerRecyclerItem>()
     private val ratingBarRecyclerItems = mutableListOf<ChildRatingBarRecyclerItem>()
 
     enum class RecyclerViewType(val value: Int) {
-        CHRONOMETER_PARENT(value = 1000),
-        CHRONOMETER_CHILD(value = 1001),
-        CHECKBOX_PARENT(value = 2000),
-        CHECKBOX_CHILD(value = 2001),
+        IMAGE_PARENT(value = 1000),
+        IMAGE_CHILD(value = 1001),
+        CHRONOMETER_PARENT(value = 2000),
+        CHRONOMETER_CHILD(value = 2001),
         RATING_BAR_PARENT(value = 3000),
         RATING_BAR_CHILD(value = 3001);
     }
 
     init {
         recyclerItems.also {
-            it.add(ParentCheckboxRecyclerItem(text = "Pure Eyes\n純粋さを、捨てない。"))
+            it.add(ParentImageRecyclerItem(text = "Pure Eyes\n純粋さを、捨てない。"))
             it.add(ParentChronometerRecyclerItem(text = "Urban Cowgirl\n“私”で、生きてゆく。"))
             it.add(ParentRatingBarRecyclerItem(text = "Mystic Journey\n旅を、やめない。"))
         }
 
-        checkboxRecyclerItems.addAll(listOf(
-                ChildCheckboxRecyclerItem(text = "瞳を閉じて", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "ジャコビニ彗星の日", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "スラバヤ通りの妹へ", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "雨の街を", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "緑の町に舞い降りて", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "セシルの週末", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "September Blue Moon", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "まずはどこへ行こう", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "ただわけもなく", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "海に来て", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "Summer Junction", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "きっと言える", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "Midnight Scarecrow", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "Autumn Park", isChecked = true),
-                ChildCheckboxRecyclerItem(text = "雪だより", isChecked = true)))
+        imageRecyclerItems.addAll(listOf(
+                ChildImageRecyclerItem(text = "瞳を閉じて", drawableRes = R.mipmap.ic_launcher),
+                ChildImageRecyclerItem(text = "ジャコビニ彗星の日", drawableRes = R.mipmap.ic_launcher_round),
+                ChildImageRecyclerItem(text = "スラバヤ通りの妹へ", drawableRes = R.mipmap.ic_launcher),
+                ChildImageRecyclerItem(text = "雨の街を", drawableRes = R.mipmap.ic_launcher_round),
+                ChildImageRecyclerItem(text = "緑の町に舞い降りて", drawableRes = R.mipmap.ic_launcher),
+                ChildImageRecyclerItem(text = "セシルの週末", drawableRes = R.mipmap.ic_launcher_round),
+                ChildImageRecyclerItem(text = "September Blue Moon", drawableRes = R.mipmap.ic_launcher),
+                ChildImageRecyclerItem(text = "まずはどこへ行こう", drawableRes = R.mipmap.ic_launcher_round),
+                ChildImageRecyclerItem(text = "ただわけもなく", drawableRes = R.mipmap.ic_launcher),
+                ChildImageRecyclerItem(text = "海に来て", drawableRes = R.mipmap.ic_launcher_round),
+                ChildImageRecyclerItem(text = "Summer Junction", drawableRes = R.mipmap.ic_launcher),
+                ChildImageRecyclerItem(text = "きっと言える", drawableRes = R.mipmap.ic_launcher_round),
+                ChildImageRecyclerItem(text = "Midnight Scarecrow", drawableRes = R.mipmap.ic_launcher),
+                ChildImageRecyclerItem(text = "Autumn Park", drawableRes = R.mipmap.ic_launcher_round),
+                ChildImageRecyclerItem(text = "雪だより", drawableRes = R.mipmap.ic_launcher)))
 
         chronometerRecyclerItems.addAll(listOf(
                 ChildChronometerRecyclerItem(text = "ふってあげる", millisecond = 295),
@@ -97,8 +98,8 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
             when (viewType) {
-                RecyclerViewType.CHECKBOX_PARENT.value -> ParentCheckboxViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_parent, parent, false))
-                RecyclerViewType.CHECKBOX_CHILD.value -> ChildCheckboxViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_child_checkbox, parent, false))
+                RecyclerViewType.IMAGE_PARENT.value -> ParentImageViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_parent, parent, false))
+                RecyclerViewType.IMAGE_CHILD.value -> ChildImageViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_child_image, parent, false))
                 RecyclerViewType.CHRONOMETER_PARENT.value -> ParentChronometerViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_parent, parent, false))
                 RecyclerViewType.CHRONOMETER_CHILD.value -> ChildChronometerViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_child_chronometer, parent, false))
                 RecyclerViewType.RATING_BAR_PARENT.value -> ParentRatingBarViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_parent, parent, false))
@@ -109,8 +110,8 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
         when (viewHolder) {
-            is ParentCheckboxViewHolder -> viewHolder.bind(recyclerItems[position] as ParentCheckboxRecyclerItem)
-            is ChildCheckboxViewHolder -> viewHolder.bind(recyclerItems[position] as ChildCheckboxRecyclerItem)
+            is ParentImageViewHolder -> viewHolder.bind(recyclerItems[position] as ParentImageRecyclerItem)
+            is ChildImageViewHolder -> viewHolder.bind(recyclerItems[position] as ChildImageRecyclerItem)
             is ParentChronometerViewHolder -> viewHolder.bind(recyclerItems[position] as ParentChronometerRecyclerItem)
             is ChildChronometerViewHolder -> viewHolder.bind(recyclerItems[position] as ChildChronometerRecyclerItem)
             is ParentRatingBarViewHolder -> viewHolder.bind(recyclerItems[position] as ParentRatingBarRecyclerItem)
@@ -137,20 +138,20 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
         }
     }
 
-    inner class ParentCheckboxViewHolder(private val binding: ItemParentBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ParentCheckboxRecyclerItem) {
+    inner class ParentImageViewHolder(private val binding: ItemParentBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ParentImageRecyclerItem) {
             binding.textView.text = item.text
 
             itemView.setOnClickListener {
-                if (isExpandedCheckbox) {
-                    removeRecyclerItems(RecyclerViewType.CHECKBOX_CHILD)
+                if (isExpandedImage) {
+                    removeRecyclerItems(RecyclerViewType.IMAGE_CHILD)
                 } else {
-                    addRecyclerItems(RecyclerViewType.CHECKBOX_PARENT, checkboxRecyclerItems)
+                    addRecyclerItems(RecyclerViewType.IMAGE_PARENT, imageRecyclerItems)
 
-                    onExpanded.invoke(findFirstPosition(RecyclerViewType.CHECKBOX_PARENT)!!)
+                    onExpanded.invoke(findFirstPosition(RecyclerViewType.IMAGE_PARENT)!!)
                 }
 
-                isExpandedCheckbox = !isExpandedCheckbox
+                isExpandedImage = !isExpandedImage
                 rotateArrow()
             }
 
@@ -158,14 +159,14 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
         }
 
         private fun rotateArrow() {
-            binding.arrow.rotation = if (isExpandedCheckbox) 180f else 0f
+            binding.arrow.rotation = if (isExpandedImage) 180f else 0f
         }
     }
 
-    inner class ChildCheckboxViewHolder(private val binding: ItemChildCheckboxBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ChildCheckboxRecyclerItem) {
+    inner class ChildImageViewHolder(private val binding: ItemChildImageBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ChildImageRecyclerItem) {
             binding.textView.text = item.text
-            binding.checkbox.isChecked = item.isChecked
+            binding.imageView.setImageResource(item.drawableRes)
         }
     }
 
@@ -238,12 +239,12 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
         fun viewType(): RecyclerViewType
     }
 
-    inner class ParentCheckboxRecyclerItem(val text: String) : RecyclerItem {
-        override fun viewType(): RecyclerViewType = RecyclerViewType.CHECKBOX_PARENT
+    inner class ParentImageRecyclerItem(val text: String) : RecyclerItem {
+        override fun viewType(): RecyclerViewType = RecyclerViewType.IMAGE_PARENT
     }
 
-    inner class ChildCheckboxRecyclerItem(val text: String, var isChecked: Boolean) : RecyclerItem {
-        override fun viewType(): RecyclerViewType = RecyclerViewType.CHECKBOX_CHILD
+    inner class ChildImageRecyclerItem(val text: String, @DrawableRes val drawableRes: Int) : RecyclerItem {
+        override fun viewType(): RecyclerViewType = RecyclerViewType.IMAGE_CHILD
     }
 
     inner class ParentChronometerRecyclerItem(val text: String) : RecyclerItem {
