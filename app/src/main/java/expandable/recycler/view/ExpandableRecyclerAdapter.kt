@@ -10,11 +10,10 @@ import expandable.recycler.view.databinding.ItemChildCheckboxBinding
 import expandable.recycler.view.databinding.ItemChildChronometerBinding
 import expandable.recycler.view.databinding.ItemChildRatingbarBinding
 import expandable.recycler.view.databinding.ItemParentBinding
-import java.util.*
 
 class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (position: Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val recyclerItems = ArrayList<RecyclerItem>()
+    private val recyclerItems = mutableListOf<RecyclerItem>()
 
     private val inflater = LayoutInflater.from(context)
 
