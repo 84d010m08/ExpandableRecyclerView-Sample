@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import expandable.recycler.view.databinding.ItemChildChronometerBinding
 import expandable.recycler.view.databinding.ItemChildImageBinding
-import expandable.recycler.view.databinding.ItemChildRatingbarBinding
+import expandable.recycler.view.databinding.ItemChildQuickContactBadgeBinding
 import expandable.recycler.view.databinding.ItemParentBinding
 
 class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (position: Int) -> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -20,26 +20,26 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
 
     private var isExpandedImage = false
     private var isExpandedChronometer = false
-    private var isExpandedRatingBar = false
+    private var isExpandedQuickContactBadge = false
 
     private val imageRecyclerItems = mutableListOf<ChildImageRecyclerItem>()
     private val chronometerRecyclerItems = mutableListOf<ChildChronometerRecyclerItem>()
-    private val ratingBarRecyclerItems = mutableListOf<ChildRatingBarRecyclerItem>()
+    private val quickContactBadgeRecyclerItems = mutableListOf<ChildQuickContactBadgeRecyclerItem>()
 
     enum class RecyclerViewType(val value: Int) {
         IMAGE_PARENT(value = 1000),
         IMAGE_CHILD(value = 1001),
         CHRONOMETER_PARENT(value = 2000),
         CHRONOMETER_CHILD(value = 2001),
-        RATING_BAR_PARENT(value = 3000),
-        RATING_BAR_CHILD(value = 3001);
+        QUICK_CONTACT_BADGE_PARENT(value = 3000),
+        QUICK_CONTACT_BADGE_CHILD(value = 3001);
     }
 
     init {
         recyclerItems.also {
             it.add(ParentImageRecyclerItem(text = "Pure Eyes\n純粋さを、捨てない。"))
             it.add(ParentChronometerRecyclerItem(text = "Urban Cowgirl\n“私”で、生きてゆく。"))
-            it.add(ParentRatingBarRecyclerItem(text = "Mystic Journey\n旅を、やめない。"))
+            it.add(ParentQuickContactBadgeRecyclerItem(text = "Mystic Journey\n旅を、やめない。"))
         }
 
         imageRecyclerItems.addAll(listOf(
@@ -76,22 +76,22 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
                 ChildChronometerRecyclerItem(text = "オールマイティ", millisecond = 265),
                 ChildChronometerRecyclerItem(text = "フォーカス", millisecond = 316)))
 
-        ratingBarRecyclerItems.addAll(listOf(
-                ChildRatingBarRecyclerItem(text = "満月のフォーチュン", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "破れた恋の繕し方教えます", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "砂の惑星", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "朝陽の中で微笑んで", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "輪舞曲", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "ツバメのように", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "シャンソン", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "霧の中の影", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "AVALON", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "BABYLON", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "きみなき世界", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "Man in the Moon", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "SATURDAY NIGHT ZOMBIES", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "無限の中の一度", rating = 3f),
-                ChildRatingBarRecyclerItem(text = "July", rating = 3f)))
+        quickContactBadgeRecyclerItems.addAll(listOf(
+                ChildQuickContactBadgeRecyclerItem(text = "満月のフォーチュン"),
+                ChildQuickContactBadgeRecyclerItem(text = "破れた恋の繕し方教えます"),
+                ChildQuickContactBadgeRecyclerItem(text = "砂の惑星"),
+                ChildQuickContactBadgeRecyclerItem(text = "朝陽の中で微笑んで"),
+                ChildQuickContactBadgeRecyclerItem(text = "輪舞曲"),
+                ChildQuickContactBadgeRecyclerItem(text = "ツバメのように"),
+                ChildQuickContactBadgeRecyclerItem(text = "シャンソン"),
+                ChildQuickContactBadgeRecyclerItem(text = "霧の中の影"),
+                ChildQuickContactBadgeRecyclerItem(text = "AVALON"),
+                ChildQuickContactBadgeRecyclerItem(text = "BABYLON"),
+                ChildQuickContactBadgeRecyclerItem(text = "きみなき世界"),
+                ChildQuickContactBadgeRecyclerItem(text = "Man in the Moon"),
+                ChildQuickContactBadgeRecyclerItem(text = "SATURDAY NIGHT ZOMBIES"),
+                ChildQuickContactBadgeRecyclerItem(text = "無限の中の一度"),
+                ChildQuickContactBadgeRecyclerItem(text = "July")))
     }
 
     override fun getItemViewType(position: Int): Int = recyclerItems[position].viewType().value
@@ -102,8 +102,8 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
                 RecyclerViewType.IMAGE_CHILD.value -> ChildImageViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_child_image, parent, false))
                 RecyclerViewType.CHRONOMETER_PARENT.value -> ParentChronometerViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_parent, parent, false))
                 RecyclerViewType.CHRONOMETER_CHILD.value -> ChildChronometerViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_child_chronometer, parent, false))
-                RecyclerViewType.RATING_BAR_PARENT.value -> ParentRatingBarViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_parent, parent, false))
-                else -> ChildRatingBarViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_child_ratingbar, parent, false))
+                RecyclerViewType.QUICK_CONTACT_BADGE_PARENT.value -> ParentQuickContactBadgeViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_parent, parent, false))
+                else -> ChildQuickContactBadgeViewHolder(DataBindingUtil.inflate(inflater, R.layout.item_child_quick_contact_badge, parent, false))
             }
 
     override fun getItemCount(): Int = recyclerItems.size
@@ -114,8 +114,8 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
             is ChildImageViewHolder -> viewHolder.bind(recyclerItems[position] as ChildImageRecyclerItem)
             is ParentChronometerViewHolder -> viewHolder.bind(recyclerItems[position] as ParentChronometerRecyclerItem)
             is ChildChronometerViewHolder -> viewHolder.bind(recyclerItems[position] as ChildChronometerRecyclerItem)
-            is ParentRatingBarViewHolder -> viewHolder.bind(recyclerItems[position] as ParentRatingBarRecyclerItem)
-            is ChildRatingBarViewHolder -> viewHolder.bind(recyclerItems[position] as ChildRatingBarRecyclerItem)
+            is ParentQuickContactBadgeViewHolder -> viewHolder.bind(recyclerItems[position] as ParentQuickContactBadgeRecyclerItem)
+            is ChildQuickContactBadgeViewHolder -> viewHolder.bind(recyclerItems[position] as ChildQuickContactBadgeRecyclerItem)
         }
     }
 
@@ -198,25 +198,24 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
     inner class ChildChronometerViewHolder(private val binding: ItemChildChronometerBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ChildChronometerRecyclerItem) {
             binding.textView.text = item.text
-
             binding.chronometer.base = SystemClock.elapsedRealtime() - (item.millisecond * 1000)
         }
     }
 
-    inner class ParentRatingBarViewHolder(private val binding: ItemParentBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ParentRatingBarRecyclerItem) {
+    inner class ParentQuickContactBadgeViewHolder(private val binding: ItemParentBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ParentQuickContactBadgeRecyclerItem) {
             binding.textView.text = item.text
 
             itemView.setOnClickListener {
-                if (isExpandedRatingBar) {
-                    removeRecyclerItems(RecyclerViewType.RATING_BAR_CHILD)
+                if (isExpandedQuickContactBadge) {
+                    removeRecyclerItems(RecyclerViewType.QUICK_CONTACT_BADGE_CHILD)
                 } else {
-                    addRecyclerItems(RecyclerViewType.RATING_BAR_PARENT, ratingBarRecyclerItems)
+                    addRecyclerItems(RecyclerViewType.QUICK_CONTACT_BADGE_PARENT, quickContactBadgeRecyclerItems)
 
-                    onExpanded.invoke(findFirstPosition(RecyclerViewType.RATING_BAR_PARENT)!!)
+                    onExpanded.invoke(findFirstPosition(RecyclerViewType.QUICK_CONTACT_BADGE_PARENT)!!)
                 }
 
-                isExpandedRatingBar = !isExpandedRatingBar
+                isExpandedQuickContactBadge = !isExpandedQuickContactBadge
                 rotateArrow()
             }
 
@@ -224,14 +223,15 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
         }
 
         private fun rotateArrow() {
-            binding.arrow.rotation = if (isExpandedRatingBar) 180f else 0f
+            binding.arrow.rotation = if (isExpandedQuickContactBadge) 180f else 0f
         }
     }
 
-    inner class ChildRatingBarViewHolder(private val binding: ItemChildRatingbarBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ChildRatingBarRecyclerItem) {
+    inner class ChildQuickContactBadgeViewHolder(private val binding: ItemChildQuickContactBadgeBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ChildQuickContactBadgeRecyclerItem) {
             binding.textView.text = item.text
-            binding.ratingBar.rating = item.rating
+            binding.quickContactBadge.setImageToDefault()
+            binding.quickContactBadge.assignContactFromPhone("0120-000-000", true)
         }
     }
 
@@ -255,11 +255,11 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
         override fun viewType(): RecyclerViewType = RecyclerViewType.CHRONOMETER_CHILD
     }
 
-    inner class ParentRatingBarRecyclerItem(val text: String) : RecyclerItem {
-        override fun viewType(): RecyclerViewType = RecyclerViewType.RATING_BAR_PARENT
+    inner class ParentQuickContactBadgeRecyclerItem(val text: String) : RecyclerItem {
+        override fun viewType(): RecyclerViewType = RecyclerViewType.QUICK_CONTACT_BADGE_PARENT
     }
 
-    inner class ChildRatingBarRecyclerItem(val text: String, val rating: Float) : RecyclerItem {
-        override fun viewType(): RecyclerViewType = RecyclerViewType.RATING_BAR_CHILD
+    inner class ChildQuickContactBadgeRecyclerItem(val text: String) : RecyclerItem {
+        override fun viewType(): RecyclerViewType = RecyclerViewType.QUICK_CONTACT_BADGE_CHILD
     }
 }
