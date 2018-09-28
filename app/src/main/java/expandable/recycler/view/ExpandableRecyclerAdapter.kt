@@ -22,6 +22,10 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
     private var isExpandedChronometer = false
     private var isExpandedRatingBar = false
 
+    private val checkboxRecyclerItems = mutableListOf<ChildCheckboxRecyclerItem>()
+    private val chronometerRecyclerItems = mutableListOf<ChildChronometerRecyclerItem>()
+    private val ratingBarRecyclerItems = mutableListOf<ChildRatingBarRecyclerItem>()
+
     enum class RecyclerViewType(val value: Int) {
         CHRONOMETER_PARENT(value = 1000),
         CHRONOMETER_CHILD(value = 1001),
@@ -37,6 +41,57 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
             it.add(ParentChronometerRecyclerItem(text = "Urban Cowgirl\n“私”で、生きてゆく。"))
             it.add(ParentRatingBarRecyclerItem(text = "Mystic Journey\n旅を、やめない。"))
         }
+
+        checkboxRecyclerItems.addAll(listOf(
+                ChildCheckboxRecyclerItem(text = "瞳を閉じて", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "ジャコビニ彗星の日", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "スラバヤ通りの妹へ", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "雨の街を", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "緑の町に舞い降りて", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "セシルの週末", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "September Blue Moon", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "まずはどこへ行こう", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "ただわけもなく", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "海に来て", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "Summer Junction", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "きっと言える", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "Midnight Scarecrow", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "Autumn Park", isChecked = true),
+                ChildCheckboxRecyclerItem(text = "雪だより", isChecked = true)))
+
+        chronometerRecyclerItems.addAll(listOf(
+                ChildChronometerRecyclerItem(text = "ふってあげる", millisecond = 295),
+                ChildChronometerRecyclerItem(text = "思い出に間にあいたくて", millisecond = 244),
+                ChildChronometerRecyclerItem(text = "ひとつの恋が終るとき", millisecond = 321),
+                ChildChronometerRecyclerItem(text = "もう愛は始まらない", millisecond = 286),
+                ChildChronometerRecyclerItem(text = "TUXEDO RAIN", millisecond = 272),
+                ChildChronometerRecyclerItem(text = "心ほどいて", millisecond = 269),
+                ChildChronometerRecyclerItem(text = "街角のペシミスト", millisecond = 280),
+                ChildChronometerRecyclerItem(text = "NIGHT WALKER", millisecond = 303),
+                ChildChronometerRecyclerItem(text = "Nobody Else", millisecond = 200),
+                ChildChronometerRecyclerItem(text = "夕涼み", millisecond = 260),
+                ChildChronometerRecyclerItem(text = "雨のステイション", millisecond = 316),
+                ChildChronometerRecyclerItem(text = "幸せはあなたへの復讐", millisecond = 260),
+                ChildChronometerRecyclerItem(text = "Cowgirl Blues", millisecond = 248),
+                ChildChronometerRecyclerItem(text = "オールマイティ", millisecond = 265),
+                ChildChronometerRecyclerItem(text = "フォーカス", millisecond = 316)))
+
+        ratingBarRecyclerItems.addAll(listOf(
+                ChildRatingBarRecyclerItem(text = "満月のフォーチュン", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "破れた恋の繕し方教えます", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "砂の惑星", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "朝陽の中で微笑んで", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "輪舞曲", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "ツバメのように", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "シャンソン", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "霧の中の影", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "AVALON", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "BABYLON", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "きみなき世界", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "Man in the Moon", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "SATURDAY NIGHT ZOMBIES", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "無限の中の一度", rating = 3f),
+                ChildRatingBarRecyclerItem(text = "July", rating = 3f)))
     }
 
     override fun getItemViewType(position: Int): Int = recyclerItems[position].viewType().value
@@ -91,22 +146,7 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
                 if (isExpandedCheckbox) {
                     removeRecyclerItems(RecyclerViewType.CHECKBOX_CHILD)
                 } else {
-                    addRecyclerItems(RecyclerViewType.CHECKBOX_PARENT, listOf(
-                            ChildCheckboxRecyclerItem(text = "瞳を閉じて", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "ジャコビニ彗星の日", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "スラバヤ通りの妹へ", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "雨の街を", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "緑の町に舞い降りて", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "セシルの週末", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "September Blue Moon", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "まずはどこへ行こう", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "ただわけもなく", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "海に来て", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "Summer Junction", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "きっと言える", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "Midnight Scarecrow", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "Autumn Park", isChecked = true),
-                            ChildCheckboxRecyclerItem(text = "雪だより", isChecked = true)))
+                    addRecyclerItems(RecyclerViewType.CHECKBOX_PARENT, checkboxRecyclerItems)
 
                     onExpanded.invoke(findFirstPosition(RecyclerViewType.CHECKBOX_PARENT)!!)
                 }
@@ -138,22 +178,7 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
                 if (isExpandedChronometer) {
                     removeRecyclerItems(RecyclerViewType.CHRONOMETER_CHILD)
                 } else {
-                    addRecyclerItems(RecyclerViewType.CHRONOMETER_PARENT, listOf(
-                            ChildChronometerRecyclerItem(text = "ふってあげる", millisecond = 295),
-                            ChildChronometerRecyclerItem(text = "思い出に間にあいたくて", millisecond = 244),
-                            ChildChronometerRecyclerItem(text = "ひとつの恋が終るとき", millisecond = 321),
-                            ChildChronometerRecyclerItem(text = "もう愛は始まらない", millisecond = 286),
-                            ChildChronometerRecyclerItem(text = "TUXEDO RAIN", millisecond = 272),
-                            ChildChronometerRecyclerItem(text = "心ほどいて", millisecond = 269),
-                            ChildChronometerRecyclerItem(text = "街角のペシミスト", millisecond = 280),
-                            ChildChronometerRecyclerItem(text = "NIGHT WALKER", millisecond = 303),
-                            ChildChronometerRecyclerItem(text = "Nobody Else", millisecond = 200),
-                            ChildChronometerRecyclerItem(text = "夕涼み", millisecond = 260),
-                            ChildChronometerRecyclerItem(text = "雨のステイション", millisecond = 316),
-                            ChildChronometerRecyclerItem(text = "幸せはあなたへの復讐", millisecond = 260),
-                            ChildChronometerRecyclerItem(text = "Cowgirl Blues", millisecond = 248),
-                            ChildChronometerRecyclerItem(text = "オールマイティ", millisecond = 265),
-                            ChildChronometerRecyclerItem(text = "フォーカス", millisecond = 316)))
+                    addRecyclerItems(RecyclerViewType.CHRONOMETER_PARENT, chronometerRecyclerItems)
 
                     onExpanded.invoke(findFirstPosition(RecyclerViewType.CHRONOMETER_PARENT)!!)
                 }
@@ -186,22 +211,7 @@ class ExpandableRecyclerAdapter(context: Context, private val onExpanded: (posit
                 if (isExpandedRatingBar) {
                     removeRecyclerItems(RecyclerViewType.RATING_BAR_CHILD)
                 } else {
-                    addRecyclerItems(RecyclerViewType.RATING_BAR_PARENT, listOf(
-                            ChildRatingBarRecyclerItem(text = "満月のフォーチュン", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "破れた恋の繕し方教えます", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "砂の惑星", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "朝陽の中で微笑んで", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "輪舞曲", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "ツバメのように", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "シャンソン", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "霧の中の影", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "AVALON", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "BABYLON", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "きみなき世界", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "Man in the Moon", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "SATURDAY NIGHT ZOMBIES", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "無限の中の一度", rating = 3f),
-                            ChildRatingBarRecyclerItem(text = "July", rating = 3f)))
+                    addRecyclerItems(RecyclerViewType.RATING_BAR_PARENT, ratingBarRecyclerItems)
 
                     onExpanded.invoke(findFirstPosition(RecyclerViewType.RATING_BAR_PARENT)!!)
                 }
