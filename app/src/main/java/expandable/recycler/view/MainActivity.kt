@@ -15,9 +15,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = ExpandableRecyclerAdapter(this) { position ->
             // https://stackoverflow.com/a/43505830
             val smoothScroller = object : LinearSmoothScroller(this) {
-                override fun getVerticalSnapPreference(): Int {
-                    return LinearSmoothScroller.SNAP_TO_START
-                }
+                override fun getVerticalSnapPreference() = SNAP_TO_START
             }
             smoothScroller.targetPosition = position
             binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
