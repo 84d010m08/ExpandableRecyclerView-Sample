@@ -2,16 +2,19 @@ package expandable.recycler.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearSmoothScroller
 import expandable.recycler.view.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         binding.recyclerView.adapter = ExpandableRecyclerAdapter(this) { position ->
             // https://stackoverflow.com/a/43505830
             val smoothScroller = object : LinearSmoothScroller(this) {
