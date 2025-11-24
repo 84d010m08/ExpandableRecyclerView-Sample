@@ -2,6 +2,8 @@ package expandable.recycler.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearSmoothScroller
 import expandable.recycler.view.databinding.ActivityMainBinding
 
@@ -26,5 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         // ItemDecoration を追加すると展開した直後に区切り線が見えてしまう
         //it.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 }
